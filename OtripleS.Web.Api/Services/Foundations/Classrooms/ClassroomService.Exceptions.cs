@@ -11,6 +11,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using OtripleS.Web.Api.Models.Classrooms;
 using OtripleS.Web.Api.Models.Classrooms.Exceptions;
+using Xeptions;
 
 namespace OtripleS.Web.Api.Services.Foundations.Classrooms
 {
@@ -80,7 +81,10 @@ namespace OtripleS.Web.Api.Services.Foundations.Classrooms
             }
             catch (Exception exception)
             {
-                throw CreateAndLogServiceException(exception);
+                var failedClassroomServiceException =
+                    new FailedClassroomServiceException(exception);
+
+                throw CreateAndLogServiceException(failedClassroomServiceException);
             }
         }
 
@@ -92,7 +96,7 @@ namespace OtripleS.Web.Api.Services.Foundations.Classrooms
             return classroomValidationException;
         }
 
-        private ClassroomDependencyException CreateAndLogCriticalDependencyException(Exception exception)
+        private ClassroomDependencyException CreateAndLogCriticalDependencyException(Xeption exception)
         {
             var classroomDependencyException = new ClassroomDependencyException(exception);
             this.loggingBroker.LogCritical(classroomDependencyException);
@@ -100,7 +104,7 @@ namespace OtripleS.Web.Api.Services.Foundations.Classrooms
             return classroomDependencyException;
         }
 
-        private ClassroomDependencyException CreateAndLogDependencyException(Exception exception)
+        private ClassroomDependencyException CreateAndLogDependencyException(Xeption exception)
         {
             var classroomDependencyException = new ClassroomDependencyException(exception);
             this.loggingBroker.LogError(classroomDependencyException);

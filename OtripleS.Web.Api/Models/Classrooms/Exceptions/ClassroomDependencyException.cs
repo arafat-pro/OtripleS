@@ -10,7 +10,7 @@ namespace OtripleS.Web.Api.Models.Classrooms.Exceptions
 {
     public class ClassroomDependencyException : Xeption
     {
-        public ClassroomDependencyException(Exception innerException)
+        public ClassroomDependencyException(Xeption innerException)
             : base(message: "Service dependency error occurred, contact support.", innerException) { }
     }
 }
